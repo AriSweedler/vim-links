@@ -19,4 +19,10 @@ endif
 if !hasmapto('<Plug>LinkCreateVisual')
   vmap <unique> <C-k> <Plug>LinkCreateVisual
 endif
+if !hasmapto('<Plug>LinkOpenOpen')
+  nmap gx <Plug>LinkOpenOpen
+endif
+if !hasmapto('<Plug>LinkOpenYank')
+  nmap gX <Plug>LinkOpenYank
+endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
