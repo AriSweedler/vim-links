@@ -72,6 +72,9 @@ function! links#open(arg)
     return
   endif
 
+  " Escape '%' so it doesn't get expanded into the filename erroneously
+  let l:link = escape(l:link, "%")
+
   if a:arg == "open"
     execute '!open "' . l:link . '"'
   elseif a:arg == "yank"
