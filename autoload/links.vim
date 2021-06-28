@@ -6,6 +6,7 @@ let g:autoloaded_sweedlerLinks = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 """"""""""""""""""""""""""""""" Create links """"""""""""""""""""""""""""""" {{{
 function! links#create_insert()
+  call lib#break_undo()
   let [_, kmark_line, kmark_col, _] = getpos("'k")
 
   " If the k-mark isn't set, then set it & return
@@ -22,6 +23,7 @@ function! links#create_insert()
 
   " Highlight text from the cursor to the k-mark, and replace it with a link
   execute 'normal! v' . movement . '"0da[0](*)'
+  call lib#break_undo()
 
   " Unset the k-mark
   delmarks k
