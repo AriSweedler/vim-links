@@ -78,10 +78,27 @@ function! links#open(arg)
   let l:link = escape(l:link, "%")
 
   if a:arg == "open"
-    execute '!open "' . l:link . '"'
+    call s:link_open_helper(l:link)
   elseif a:arg == "yank"
     call setreg('*', l:link)
     echom "'" . l:link . "' placed on clipboard"
+  endif
+endfunction
+
+function! s:link_open_helper(link)
+  let l:parts = split(a:link, ':\/\/')
+  if len(l:parts) != 2
+    execute '!open "' . a:link . '"'
+    return
+  endif
+
+  let [l:protocol, l:file] = l:parts
+  if l:protocol == "https"
+    execute '!open "' . a:link . '"'
+  elseif l:protocol == "vim"
+    execute "tabe " . l:file
+  else
+    echom "Proto " . l:protocol . " not supported in " . expand("<stack>")
   endif
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
