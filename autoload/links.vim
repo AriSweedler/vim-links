@@ -95,10 +95,25 @@ function! s:link_open_helper(link)
   let [l:protocol, l:file] = l:parts
   if l:protocol == "https"
     execute '!open "' . a:link . '"'
-  elseif l:protocol == "vim"
-    execute "tabe " . l:file
+    return
+  endif
+
+  if l:protocol == "vim"
+    call s:link_open_helper_vim(l:file)
   else
     echom "Proto " . l:protocol . " not supported in " . expand("<stack>")
   endif
+endfunction
+
+function! s:link_open_helper_vim(body)
+  let idx = match(a:body, ':')
+  if idx == -1
+    execute "tabe " . a:body
+    return
+  endif
+
+  let [l:file, l:line] = split(a:body, ':')
+  execute "tabe " . l:file
+  execute "normal " . l:line . "Gzx"
 endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
