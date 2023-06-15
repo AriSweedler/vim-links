@@ -10,6 +10,7 @@ noremap <unique> <script> <Plug>LinkCreateInsert :call links#create_insert()<CR>
 noremap <unique> <script> <Plug>LinkCreateVisual "0da[<C-r>0](<C-r>*)
 noremap <unique> <script> <Plug>LinkOpenOpen :call links#open("open")<CR>
 noremap <unique> <script> <Plug>LinkOpenYank :call links#open("yank")<CR>
+noremap <unique> <script> <Plug>GetFilepathOfCurrentFile :let @* = expand("%:p")<CR>
 noremap <unique> <script> <Plug>GetLinkToCurrentFile :let @* = percent#get_link_to_curpos()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 """""""""""""""""" Give default keybindings to plugin API """""""""""""""""" {{{
@@ -27,7 +28,10 @@ endif
 if !hasmapto('<Plug>LinkOpenYank')
   nmap gX <Plug>LinkOpenYank
 endif
+if !hasmapto('<Plug>GetFilepathOfCurrentFile')
+  nmap <Leader>% <Plug>GetFilepathOfCurrentFile
+endif
 if !hasmapto('<Plug>GetLinkToCurrentFile')
-  nmap <Leader>% <Plug>GetLinkToCurrentFile
+  nmap <Leader><Leader>% <Plug>GetLinkToCurrentFile
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
